@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"studentservice/models"
 	"studentservice/service"
 	"studentservice/untils"
@@ -15,8 +16,7 @@ func main() {
 	// 从文件加载学生数据
 	students, err := models.LoadStudents(dataFile)
 	if err != nil {
-		fmt.Println("加载学生数据失败：", err)
-		return
+		log.Fatalf("加载学生数据失败：%v", err)
 	}
 
 	fmt.Println("=== 欢迎来到学生管理系统 ===")
@@ -36,21 +36,28 @@ func main() {
 		switch choice {
 		case 1:
 			// 添加学生
-			service.AddStudent(&students)
+			if err := service.AddStudent(&students); err != nil {
+				log.Printf("添加学生失败：%v", err)
+			}
 		case 2:
 			// 查看学生
-			service.ViewStudent(&students)
+			if err := service.ViewStudent(&students); err != nil {
+				log.Printf("查看学生失败：%v", err)
+			}
 		case 3:
 			// 修改学生
-			service.EditStudent(&students)
+			if err := service.EditStudent(&students); err != nil {
+				log.Printf("修改学生失败：%v", err)
+			}
 		case 4:
 			// 删除学生
-			service.DeleteStudent(&students)
+			if err := service.DeleteStudent(&students); err != nil {
+				log.Printf("删除学生失败：%v", err)
+			}
 		case 5:
 			// 程序退出前保存学生数据到文件
-			err := models.SaveStudents(students, dataFile)
-			if err != nil {
-				fmt.Println("保存学生数据失败：", err)
+			if err := models.SaveStudents(students, dataFile); err != nil {
+				log.Printf("保存学生数据失败：%v", err)
 			} else {
 				fmt.Println("学生数据已保存。")
 			}

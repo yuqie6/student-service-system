@@ -25,13 +25,11 @@ func ValidateEmail(email string) error {
 // - phone：待验证的手机号码
 // 返回值：
 // - error：如果手机号码格式不正确，返回错误信息；否则返回nil
-func ValidatePhoneNumber(phone int) error {
-	// 转换为字符串进行验证
-	phoneStr := fmt.Sprintf("%d", phone)
-	if len(phoneStr) != 11 {
+func ValidatePhoneNumber(phone string) error {
+	if len(phone) != 11 {
 		return fmt.Errorf("手机号码必须是11位数字")
 	}
-	if phoneStr[0] != '1' {
+	if phone[0] != '1' {
 		return fmt.Errorf("手机号码必须以1开头")
 	}
 	return nil

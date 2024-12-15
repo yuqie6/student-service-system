@@ -53,70 +53,34 @@ func AddStudent(students *[]models.Student) error {
 			}
 		}
 		// 获取其他学生信息
-		var age1 int
-		for {
-			age1, err = untils.GetIntInput("请输入要添加的学生的年龄:")
-			if err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			if err := untils.ValidateAge(age1); err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			break
+		age1, err := getValidatedIntInput("请输入要添加的学生的年龄:", untils.ValidateAge)
+		if err != nil {
+			fmt.Println("错误:", err)
+			continue
 		}
 
-		var phoneNumber1 int
-		for {
-			phoneNumber1, err = untils.GetIntInput("请输入要添加的学生的电话号码:")
-			if err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			if err := untils.ValidatePhoneNumber(phoneNumber1); err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			break
+		phoneNumber1, err := getValidatedStringInput("请输入要添加的学生的电话号码:", untils.ValidatePhoneNumber)
+		if err != nil {
+			fmt.Println("错误:", err)
+			continue
 		}
 
-		var name1 string
-		for {
-			name1, err = untils.GetStringInput("请输入要添加的学生的名字:")
-			if err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			break
+		name1, err := untils.GetStringInput("请输入要添加的学生的名字:")
+		if err != nil {
+			fmt.Println("错误:", err)
+			continue
 		}
 
-		var gender1 string
-		for {
-			gender1, err = untils.GetStringInput("请输入要添加的学生的性别(男/女):")
-			if err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			if err := untils.ValidateGender(gender1); err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			break
+		gender1, err := getValidatedStringInput("请输入要添加的学生的性别(男/女):", untils.ValidateGender)
+		if err != nil {
+			fmt.Println("错误:", err)
+			continue
 		}
 
-		var email1 string
-		for {
-			email1, err = untils.GetStringInput("请输入要添加的学生的电子邮箱:")
-			if err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			if err := untils.ValidateEmail(email1); err != nil {
-				fmt.Println("错误:", err)
-				continue
-			}
-			break
+		email1, err := getValidatedStringInput("请输入要添加的学生的电子邮箱:", untils.ValidateEmail)
+		if err != nil {
+			fmt.Println("错误:", err)
+			continue
 		}
 
 		// 创建新的学生实例
@@ -189,7 +153,7 @@ func ViewStudent(students *[]models.Student) error {
 	for _, v := range *students {
 		if v.Id == id {
 			check = true
-			fmt.Printf("ID: %d\n名字: %s\n年龄: %d\n性别: %s\n邮箱: %s\n电话: %d\n",
+			fmt.Printf("ID: %d\n名字: %s\n年龄: %d\n性别: %s\n邮箱: %s\n电话: %s\n",
 				v.Id, v.Name, v.Age, v.Gender, v.Email, v.PhoneNumber)
 		}
 	}
@@ -272,48 +236,32 @@ func EditStudent(students *[]models.Student) error {
 			}
 		case 2:
 			// 修改学生电话号码
-			phoneNumber, err := untils.GetIntInput("请输入修改后的电话号码:")
+			phoneNumber, err := getValidatedStringInput("请输入修改后的电话号码:", untils.ValidatePhoneNumber)
 			if err != nil {
-				fmt.Printf("操作失败: %v\n", err)
-				continue
-			}
-			if err := untils.ValidatePhoneNumber(phoneNumber); err != nil {
 				fmt.Printf("操作失败: %v\n", err)
 				continue
 			}
 			(*students)[tag].PhoneNumber = phoneNumber
 		case 3:
 			// 修改学生邮箱
-			email, err := untils.GetStringInput("请输入修改后的邮箱:")
+			email, err := getValidatedStringInput("请输入修改后的邮箱:", untils.ValidateEmail)
 			if err != nil {
-				fmt.Printf("操作失败: %v\n", err)
-				continue
-			}
-			if err := untils.ValidateEmail(email); err != nil {
 				fmt.Printf("操作失败: %v\n", err)
 				continue
 			}
 			(*students)[tag].Email = email
 		case 4:
 			// 修改学生性别
-			gender, err := untils.GetStringInput("请输入修改后的性别(男/女):")
+			gender, err := getValidatedStringInput("请输入修改后的性别(男/女):", untils.ValidateGender)
 			if err != nil {
-				fmt.Printf("操作失败: %v\n", err)
-				continue
-			}
-			if err := untils.ValidateGender(gender); err != nil {
 				fmt.Printf("操作失败: %v\n", err)
 				continue
 			}
 			(*students)[tag].Gender = gender
 		case 5:
 			// 修改学生年龄
-			age, err := untils.GetIntInput("请输入修改后的年龄:")
+			age, err := getValidatedIntInput("请输入修改后的年龄:", untils.ValidateAge)
 			if err != nil {
-				fmt.Printf("操作失败: %v\n", err)
-				continue
-			}
-			if err := untils.ValidateAge(age); err != nil {
 				fmt.Printf("操作失败: %v\n", err)
 				continue
 			}
@@ -329,5 +277,49 @@ func EditStudent(students *[]models.Student) error {
 			}
 			return nil
 		}
+	}
+}
+
+// getValidatedIntInput 获取并验证整数输入
+// 参数：
+// - prompt：提示信息
+// - validateFunc：验证函数
+// 返回值：
+// - int：用户输入的整数
+// - error：可能的错误信息
+func getValidatedIntInput(prompt string, validateFunc func(int) error) (int, error) {
+	for {
+		input, err := untils.GetIntInput(prompt)
+		if err != nil {
+			fmt.Println("输入错误：", err)
+			continue
+		}
+		if err := validateFunc(input); err != nil {
+			fmt.Println("验证错误：", err)
+			continue
+		}
+		return input, nil
+	}
+}
+
+// getValidatedStringInput 获取并验证字符串输入
+// 参数：
+// - prompt：提示信息
+// - validateFunc：验证函数
+// 返回值：
+// - string：用户输入的字符串
+// - error：可能的错误信息
+func getValidatedStringInput(prompt string, validateFunc func(string) error) (string, error) {
+	for {
+		input, err := untils.GetStringInput(prompt)
+		if err != nil {
+			fmt.Println("输入错误：", err)
+			continue
+		}
+		if err := validateFunc(input); err != nil {
+			fmt.Println("验证错误：", err)
+			continue
+		}
+		return input, nil
 	}
 }
