@@ -53,50 +53,72 @@ func AddStudent(students *[]models.Student) error {
 			}
 		}
 		// 获取其他学生信息
-		age1, err := untils.GetIntInput("请输入要添加的学生的年龄:")
-		if err != nil {
-			fmt.Println("错误:", err)
-			continue
-		}
-		if err := untils.ValidateAge(age1); err != nil {
-			fmt.Println("错误:", err)
-			continue
-		}
-
-		phoneNumber1, err := untils.GetIntInput("请输入要添加的学生的电话号码:")
-		if err != nil {
-			fmt.Println("错误:", err)
-			continue
-		}
-		if err := untils.ValidatePhoneNumber(phoneNumber1); err != nil {
-			fmt.Println("错误:", err)
-			continue
+		var age1 int
+		for {
+			age1, err = untils.GetIntInput("请输入要添加的学生的年龄:")
+			if err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			if err := untils.ValidateAge(age1); err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			break
 		}
 
-		name1, err := untils.GetStringInput("请输入要添加的学生的名字:")
-		if err != nil {
-			fmt.Println("错误:", err)
-			continue
-		}
-		gender1, err := untils.GetStringInput("请输入要添加的学生的性别(男/女):")
-		if err != nil {
-			fmt.Println("错误:", err)
-			continue
-		}
-		if err := untils.ValidateGender(gender1); err != nil {
-			fmt.Println("错误:", err)
-			continue
+		var phoneNumber1 int
+		for {
+			phoneNumber1, err = untils.GetIntInput("请输入要添加的学生的电话号码:")
+			if err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			if err := untils.ValidatePhoneNumber(phoneNumber1); err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			break
 		}
 
-		email1, err := untils.GetStringInput("请输入要添加的学生的电子邮箱:")
-		if err != nil {
-			fmt.Println("错误:", err)
-			continue
+		var name1 string
+		for {
+			name1, err = untils.GetStringInput("请输入要添加的学生的名字:")
+			if err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			break
 		}
-		if err := untils.ValidateEmail(email1); err != nil {
-			fmt.Println("错误:", err)
-			continue
+
+		var gender1 string
+		for {
+			gender1, err = untils.GetStringInput("请输入要添加的学生的性别(男/女):")
+			if err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			if err := untils.ValidateGender(gender1); err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			break
 		}
+
+		var email1 string
+		for {
+			email1, err = untils.GetStringInput("请输入要添加的学生的电子邮箱:")
+			if err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			if err := untils.ValidateEmail(email1); err != nil {
+				fmt.Println("错误:", err)
+				continue
+			}
+			break
+		}
+
 		// 创建新的学生实例
 		newstudent := models.Student{
 			Id:          id1,
