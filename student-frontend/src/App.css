@@ -1,0 +1,135 @@
+.App {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);  /* 更改为柔和的蓝灰渐变 */
+    display: flex;
+    flex-direction: column;
+}
+
+.App-header {
+    background: linear-gradient(120deg, #2c3e50 0%, #3498db 100%);
+    padding: 2rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.App-header h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 3rem; /* 增大字体尺寸 */
+    font-weight: 600;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* 添加文字阴影 */
+}
+
+.header-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 5px 0 0;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.App-main {
+    padding: 2rem 0;
+    opacity: 0;
+    animation: fadeInUp 0.6s forwards;
+    animation-delay: 0.2s;
+    flex: 1;  /* 添加flex属性使主体内容填充剩余空间 */
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.add-student-section,
+.list-student-section {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    flex: 1 1 45%;
+    max-width: 600px;
+    margin: 20px;
+}
+
+.list-student-section {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    flex: 1 1 100%;          /* 修改为占满宽度 */
+    max-width: none;         /* 移除最大宽度限制 */
+    margin: 20px;
+    width: 100%;            /* 添加宽度100% */
+}
+
+.add-student-section:hover,
+.list-student-section:hover {
+    transform: translateY(-5px) scale(1.02); /* 增加缩放效果 */
+}
+
+.list-student-section:hover {
+    transform: none;        /* 移除整体的悬浮效果 */
+}
+
+.App-footer {
+    text-align: center;
+    padding: 1rem 0;
+    background: rgba(44, 62, 80, 0.95);  /* 更改为深色背景 */
+    color: white;
+    margin-top: auto;  /* 确保footer始终在底部 */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    .App-header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .App-main {
+        padding: 1rem 0;
+    }
+    
+    .content-wrapper {
+        padding: 0 15px;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .content-wrapper {
+        padding: 0;         /* 移除内边距以充分利用空间 */
+    }
+
+    .add-student-section,
+    .list-student-section {
+        width: 100%;
+        margin: 0;
+    }
+
+    .list-student-section {
+        margin: 10px 0;     /* 减小垂直间距 */
+        border-radius: 0;   /* 在移动端移除圆角 */
+    }
+
+    .App-header h1 {
+        font-size: 2.5rem;
+    }
+}

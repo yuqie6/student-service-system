@@ -1,0 +1,33 @@
+
+.pagination-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-list {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+}
+
+.pagination-item a {
+    display: block;
+    padding: 8px 12px;
+    color: #3498db;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-item a:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.pagination-item.active a {
+    background-color: #3498db;
+    color: #fff;
+    pointer-events: none;
+}

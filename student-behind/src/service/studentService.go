@@ -323,3 +323,92 @@ func getValidatedStringInput(prompt string, validateFunc func(string) error) (st
 		return input, nil
 	}
 }
+
+func GetAllStudents() ([]models.Student, error) {
+	return models.LoadStudents(dataFile)
+}
+
+func GetStudentById(id int) (*models.Student, error) {
+	students, err := models.LoadStudents(dataFile)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, student := range students {
+		if student.Id == id {
+			return &student, nil
+		}
+	}
+	return nil, fmt.Errorf("学生不存在")
+}
+
+func AddNewStudent(student *models.Student) error {
+	if err := validateStudent(student); err != nil {
+		return err
+	}
+
+	students, err := models.LoadStudents(dataFile)
+	if err != nil {
+		return err
+	}
+
+	// 检查ID是否已存在
+	for _, s := range students {
+		if s.Id == student.Id {
+			return fmt.Errorf("学生ID已存在")
+		}
+	}
+
+	students = append(students, *student)
+	return models.SaveStudents(students, dataFile)
+}
+
+func UpdateStudent(student *models.Student) error {
+	if err := validateStudent(student); err != nil {
+		return err
+	}
+
+	students, err := models.LoadStudents(dataFile)
+	if err != nil {
+		return err
+	}
+
+	for i, s := range students {
+		if s.Id == student.Id {
+			students[i] = *student
+			return models.SaveStudents(students, dataFile)
+		}
+	}
+	return fmt.Errorf("学生不存在")
+}
+
+func DeleteStudentById(id int) error {
+	students, err := models.LoadStudents(dataFile)
+	if err != nil {
+		return err
+	}
+
+	for i, student := range students {
+		if student.Id == id {
+			students = append(students[:i], students[i+1:]...)
+			return models.SaveStudents(students, dataFile)
+		}
+	}
+	return fmt.Errorf("学生不存在")
+}
+
+func validateStudent(student *models.Student) error {
+	if err := untils.ValidateAge(student.Age); err != nil {
+		return err
+	}
+	if err := untils.ValidatePhoneNumber(student.PhoneNumber); err != nil {
+		return err
+	}
+	if err := untils.ValidateEmail(student.Email); err != nil {
+		return err
+	}
+	if err := untils.ValidateGender(student.Gender); err != nil {
+		return err
+	}
+	return nil
+}
