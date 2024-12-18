@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { studentApi } from '../api/studentApi';
 import './EditStudent.css'; // 引入 CSS 文件
 
@@ -15,11 +15,7 @@ function EditStudent({ studentId, onStudentUpdated, onCancel }) {
     const [success, setSuccess] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        fetchStudent();
-    }, [studentId]);
-
-    const fetchStudent = async () => {
+    const fetchStudent = useCallback(async () => {
         try {
             const response = await studentApi.getStudent(studentId);
             setStudent(response.data);
@@ -27,7 +23,11 @@ function EditStudent({ studentId, onStudentUpdated, onCancel }) {
             setError('无法获取学生数据');
             console.error(err);
         }
-    };
+    }, [studentId]);
+
+    useEffect(() => {
+        fetchStudent();
+    }, [fetchStudent]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

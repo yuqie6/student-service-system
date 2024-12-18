@@ -1,0 +1,479 @@
+.home-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
+    background-attachment: fixed; /* 添加视差效果 */
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    animation: backgroundShift 15s infinite alternate ease-in-out;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.1) 50%, transparent 52%) 0 0/20px 20px,
+        linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.1) 50%, transparent 52%) 0 0/20px 20px;
+    animation: patternMove 30s linear infinite;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.hero-icon {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin: 1rem 0 3rem;
+    letter-spacing: 4px;
+    opacity: 0.9;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff, rgba(255,255,255,0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* 删除所有波浪相关的代码 */
+.wave-container,
+.hero-waves,
+.hero-waves::before,
+.hero-waves::after {
+    display: none;
+}
+
+/* 删除波浪相关的动画 */
+@keyframes wave,
+@keyframes waveMove {
+    display: none;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.feature-card {
+    background: var(--card-gradient);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow-md);
+    transform: translateY(0);
+    transition: var(--transition-smooth);
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    text-decoration: none;
+    color: #2c3e50;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.6s var(--animation-bounce);
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--glass-shine);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    transition: var(--transform-smooth);
+    box-shadow: 
+        0 15px 35px rgba(0,0,0,0.2),
+        0 3px 10px rgba(0,0,0,0.1);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+    filter: drop-shadow(0 0 10px rgba(74,144,226,0.3));
+    transition: all 0.5s var(--animation-bounce);
+    animation: smoothFloat 6s infinite var(--flow-transition);
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.2) rotate(10deg) translateZ(20px);
+    color: var(--accent-color);
+    animation: smoothRotate 2s var(--scale-bounce) infinite;
+}
+
+.feature-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.info-card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s var(--animation-bounce);
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-3d-shadow);
+}
+
+.info-card:hover::before {
+    transform: translateX(100%);
+}
+
+.info-card h4 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.info-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroPattern {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes backgroundShift {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+@keyframes patternMove {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(20px) translateY(20px); }
+}
+
+@keyframes floatBall {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(20px, -20px); }
+    50% { transform: translate(-20px, 20px); }
+    75% { transform: translate(-20px, -20px); }
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        padding: 1rem;
+    }
+
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.decoration-balls {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ball {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), transparent);
+    filter: blur(2px);
+    animation: floatBall 10s infinite ease-in-out;
+    transition: var(--transition-smooth);
+    animation: smoothFloat 8s infinite var(--flow-transition);
+    will-change: transform;
+}
+
+.ball:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+.ball:nth-child(2) { top: 70%; right: 10%; animation-delay: -2s; }
+.ball:nth-child(3) { top: 40%; left: 50%; animation-delay: -4s; }
+
+.workflow-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 20px;
+    margin: 4rem auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    background: var(--text-gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.workflow-steps {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+    flex: 1;
+}
+
+.step::after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    right: -50%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+.step:last-child::after {
+    display: none;
+}
+
+.step-number {
+    width: 4rem;
+    height: 4rem;
+    background: var(--gradient-1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: var(--neon-glow);
+}
+
+.step-content h3 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* ...existing code... */
+
+/* 移除旧的波浪相关代码，添加新的动态效果 */
+.hero-section {
+    /* ...existing code... */
+    position: relative;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+}
+
+.hero-bottom-effect {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    z-index: 2;
+}
+
+.light-beam {
+    width: 2px;
+    background: rgba(255, 255, 255, 0.6);
+    height: 60%;
+    position: relative;
+    animation: beamFloat 3s infinite;
+}
+
+.light-beam::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #fff, 0 0 30px rgba(255,255,255,0.8);
+}
+
+.floating-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: particleRise 4s infinite;
+}
+
+/* 为每个光束添加不同的动画延迟 */
+.light-beam:nth-child(1) { animation-delay: 0s; }
+.light-beam:nth-child(2) { animation-delay: 0.5s; }
+.light-beam:nth-child(3) { animation-delay: 1s; }
+.light-beam:nth-child(4) { animation-delay: 1.5s; }
+.light-beam:nth-child(5) { animation-delay: 2s; }
+
+@keyframes beamFloat {
+    0%, 100% { height: 60%; opacity: 0.6; }
+    50% { height: 80%; opacity: 0.8; }
+}
+
+@keyframes particleRise {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(var(--x, 20px), -100px) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(var(--x, 20px) * 2), -200px) scale(0);
+        opacity: 0;
+    }
+}
+
+/* 添加交互效果 */
+.hero-bottom-effect:hover .light-beam {
+    animation-play-state: paused;
+}
+
+.hero-bottom-effect:hover .floating-particle {
+    --x: calc(var(--mouse-x, 0) * 1px);
+}
+
+.particles-js-canvas-el {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ...existing code... */

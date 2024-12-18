@@ -3,7 +3,7 @@ import { studentApi } from '../api/studentApi';
 import { IoIosRocket } from 'react-icons/io'; // 引入图标库
 import './AddStudent.css'; // 引入CSS文件
 
-function AddStudent({ onStudentAdded }) {
+function AddStudent({ onStudentAdded = () => {} }) {  // 添加默认空函数
     const [student, setStudent] = useState({
         id: '',
         name: '',
@@ -63,7 +63,11 @@ function AddStudent({ onStudentAdded }) {
                 email: '',
                 phone_number: ''
             });
-            onStudentAdded();
+            
+            // 安全调用回调函数
+            if (typeof onStudentAdded === 'function') {
+                onStudentAdded();
+            }
         } catch (err) {
             setError('添加学生失败');
             setSuccess('');
@@ -114,10 +118,14 @@ function AddStudent({ onStudentAdded }) {
                     {errors.phone_number && <p className="input-error">{errors.phone_number}</p>}
                 </div>
                 <button type="submit" className="submit-button" disabled={isLoading}>
-                    {isLoading ? '提交中...' : <>
-                        <IoIosRocket className="button-icon" />
-                        添加学生
-                    </>}
+                    <span>
+                        {isLoading ? '提交中...' : 
+                            <>
+                                <IoIosRocket className="button-icon" />
+                                <span>添加学生</span>
+                            </>
+                        }
+                    </span>
                 </button>
             </form>
         </div>

@@ -1,40 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import AddStudent from './components/AddStudent';
 import StudentList from './components/StudentList';
-import Navbar from './components/Navbar'; // 新增导入
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import SystemOverview from './components/SystemOverview';
 
 function App() {
-  const [refresh, setRefresh] = useState(false);
+    const handleStudentAdded = () => {
+        // 可以添加刷新列表或其他需要的操作
+        console.log('学生添加成功，可以在这里刷新列表');
+    };
 
-  const handleStudentAdded = () => {
-    setRefresh(!refresh);
-  };
-
-  return (
-    <div className="App">
-      <Navbar /> {/* 添加导航栏 */}
-      <header className="App-header">
-        <div className="header-content">
-          <h1>学生信息管理系统</h1>
-          <p className="header-subtitle">Student Information Management System</p>
-        </div>
-      </header>
-      <main className="App-main fade-in-up">
-        <div className="content-wrapper">
-          <section className="add-student-section">
-            <AddStudent onStudentAdded={handleStudentAdded} />
-          </section>
-          <section className="list-student-section">
-            <StudentList key={refresh} />
-          </section>
-        </div>
-      </main>
-      <footer className="App-footer">
-        <p>© 2024 学生管理系统 - 专业版</p>
-      </footer>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <Navbar />
+                <main className="App-main fade-in-up">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/student-list" element={<StudentList />} />
+                        <Route path="/add-student" element={<AddStudent onStudentAdded={handleStudentAdded} />} />
+                        <Route path="/system-overview" element={<SystemOverview />} />
+                    </Routes>
+                </main>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

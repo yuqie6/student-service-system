@@ -1,16 +1,25 @@
-
 .navbar {
-    background-color: #2c3e50;
+    background: var(--header-gradient);
     padding: 1rem 2rem;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: #ffffff;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .navbar-logo {
     font-size: 1.5rem;
     font-weight: bold;
+    background: linear-gradient(135deg, #fff, rgba(255,255,255,0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--neon-glow);
 }
 
 .navbar-menu {
@@ -24,7 +33,44 @@
     color: #ffffff;
     text-decoration: none;
     font-size: 1rem;
-    transition: color 0.3s;
+    transition: var(--transition);
+    position: relative;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-shadow: var(--text-shadow);
+    overflow: hidden;
+    z-index: 1;
+}
+
+.navbar-menu li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transform: translateX(-50%);
+    transition: width 0.3s var(--animation-bounce);
+}
+
+.navbar-menu li a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--animation-bounce);
+    z-index: -1;
+}
+
+.navbar-menu li a:hover::before {
+    transform: scaleX(1);
+}
+
+.navbar-menu li a:hover::after {
+    width: 80%;
 }
 
 .navbar-menu li a:hover {

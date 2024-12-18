@@ -1,0 +1,38 @@
+
+/* ...existing code... */
+
+.button {
+    /* ...existing code... */
+    background: linear-gradient(135deg, #4a90e2, #42b983);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.5s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    transform: skewX(-45deg);
+    transition: left 0.5s;
+}
+
+.button:hover {
+    background: linear-gradient(135deg, #42b983, #4a90e2);
+    transform: translateY(-3px);
+}
+
+.button:hover::before {
+    left: 100%;
+}
+
+/* ...existing code... */
